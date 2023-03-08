@@ -5,7 +5,7 @@ interface DropdownProps {
   searchResults: string[];
   onSelect: (item: string) => void;
 }
-const DropDown = React.memo(({ searchResults, onSelect }: DropdownProps) => {
+const DropDown = ({ searchResults, onSelect }: DropdownProps) => {
   console.log('Rendering DropDown...');
 
   return (
@@ -25,27 +25,25 @@ const DropDown = React.memo(({ searchResults, onSelect }: DropdownProps) => {
         })}
     </div>
   );
-});
-export const SearchBar = React.memo(
-  ({ onSelect }: Pick<DropdownProps, 'onSelect'>) => {
-    const [searchQuery, setSearchQuery] = React.useState('');
-    const { results } = useData(
-      `https://api.frontendeval.com/fake/food/`,
-      searchQuery
-    );
-    return (
-      <div className="search_container">
-        <label>Search Items:</label>
-        <input
-          className="search_bar"
-          type="text"
-          name="search_bar"
-          placeholder="Apples"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value.trim())}
-        ></input>
-        <DropDown searchResults={results} onSelect={onSelect} />
-      </div>
-    );
-  }
-);
+};
+export const SearchBar = ({ onSelect }: Pick<DropdownProps, 'onSelect'>) => {
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const { results } = useData(
+    `https://api.frontendeval.com/fake/food/`,
+    searchQuery
+  );
+  return (
+    <div className="search_container">
+      <label>Search Items:</label>
+      <input
+        className="search_bar"
+        type="text"
+        name="search_bar"
+        placeholder="Apples"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value.trim())}
+      ></input>
+      <DropDown searchResults={results} onSelect={onSelect} />
+    </div>
+  );
+};
