@@ -6,10 +6,8 @@ interface DropdownProps {
   onSelect: (item: string) => void;
 }
 const DropDown = ({ searchResults, onSelect }: DropdownProps) => {
-  console.log('Rendering DropDown...');
-
   return (
-    <div className="dropdown" role="listbox">
+    <div className="dropdown" role="listbox" tabIndex={0}>
       {searchResults.length > 0 &&
         searchResults.map((result) => {
           return (
